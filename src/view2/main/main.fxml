@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import view2.tabs.tab1.TabController?>
+<?import view2.tabs.tab2.TabController?>
+<?import view2.tabs.tab3.TabController?>
+<?import view2.tabs.tab4.TabController?>
+<?import view2.tabs.tab5.TabController?>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+         prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="view2.main.MainController">
+    <tabs>
+        <Tab fx:id="tab1" closable="false" text="Minimaks użyteczności">
+            <content>
+                <view2.tabs.tab1.TabController/>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Minimaks zawodu">
+            <content>
+                <view2.tabs.tab2.TabController/>
+            </content>
+        </Tab>
+        <Tab text="Kryterium Hurwicza">
+            <content>
+                <view2.tabs.tab3.TabController/>
+            </content>
+        </Tab>
+        <Tab text="Kryterium Bayes'a">
+            <content>
+                <view2.tabs.tab4.TabController/>
+            </content>
+        </Tab>
+        <Tab text="Kryterium Laplace'a">
+            <content>
+                <view2.tabs.tab5.TabController/>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

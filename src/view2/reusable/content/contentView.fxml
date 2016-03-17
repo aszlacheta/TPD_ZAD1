@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+
+    <TableView fx:id="tableView" editable="true" layoutX="7.0" layoutY="14.0" prefHeight="344.0" prefWidth="269.0">
+        <columns>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <VBox fx:id="vbox" layoutX="290.0" layoutY="10.0" prefHeight="344.0" prefWidth="250.0">
+        <padding>
+            <Insets left="10.0" right="10.0"/>
+        </padding>
+        <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
+                <children>
+                    <Label prefHeight="17.0" prefWidth="160.0" text="Najlepsza decyzja"/>
+                    <Label fx:id="bestDecisionIndex" prefHeight="17.0" prefWidth="90.0" text="?"/>
+                </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
+                <children>
+                    <Label prefHeight="17.0" prefWidth="160.0" text="Wartość"/>
+                    <Label fx:id="bestDecisionValue" prefHeight="17.0" prefWidth="90.0" text="?" textAlignment="RIGHT"/>
+                </children>
+            </HBox>
+            <VBox fx:id="factorsContainer" alignment="TOP_CENTER" layoutX="287.0" layoutY="94.0" prefWidth="154.0">
+                <children>
+                </children>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="10.0"/>
+                </VBox.margin>
+            </VBox>
+            <Button fx:id="findDecision" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Oblicz"/>
+
+
+            <Label prefHeight="17.0" prefWidth="160.0" text="Import file with table data"/>
+            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
+                <children>
+                    <TextField fx:id="fileName" text="test.txt"></TextField>
+                    <Button fx:id="addColumn" onAction="#readFromFile" mnemonicParsing="false" prefHeight="25.0"
+                            prefWidth="160.0" text="Import file"/>
+                </children>
+            </HBox>
+        </children>
+    </VBox>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</fx:root>
