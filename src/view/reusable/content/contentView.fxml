@@ -20,13 +20,13 @@
         <children>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
                 <children>
-                    <Label prefHeight="17.0" prefWidth="160.0" text="Najlepsza decyzja"/>
+                    <Label prefHeight="17.0" prefWidth="160.0" text="Best decision"/>
                     <Label fx:id="bestDecisionIndex" prefHeight="17.0" prefWidth="90.0" text="?"/>
                 </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
                 <children>
-                    <Label prefHeight="17.0" prefWidth="160.0" text="Wartość"/>
+                    <Label prefHeight="17.0" prefWidth="160.0" text="Value"/>
                     <Label fx:id="bestDecisionValue" prefHeight="17.0" prefWidth="90.0" text="?" textAlignment="RIGHT"/>
                 </children>
             </HBox>
@@ -37,17 +37,9 @@
                     <Insets bottom="10.0" top="10.0"/>
                 </VBox.margin>
             </VBox>
-            <Button fx:id="findDecision" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Oblicz"/>
-
-
-            <Label prefHeight="17.0" prefWidth="160.0" text="Import file with table data"/>
-            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="250.0">
-                <children>
-                    <TextField fx:id="fileName" text="test.txt"></TextField>
-                    <Button fx:id="addColumn" onAction="#readFromFile" mnemonicParsing="false" prefHeight="25.0"
-                            prefWidth="160.0" text="Import file"/>
-                </children>
-            </HBox>
+            <VBox fx:id="generateButtonContainer" alignment="TOP_CENTER" layoutX="287.0" layoutY="94.0" prefWidth="154.0">
+            </VBox>
+            <Button fx:id="findDecision" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Evaluate"/>
         </children>
     </VBox>
     <padding>

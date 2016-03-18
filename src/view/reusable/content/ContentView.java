@@ -30,15 +30,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package view2.reusable.content;
+package view.reusable.content;
 
-import criterias.CriteriaInterface;
+import criterias.AbstractCriteria;
 import criterias.Result;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,12 +51,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import view.reusable.menu.MenuView;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,6 +66,8 @@ public class ContentView extends HBox implements Initializable {
     private TableView tableView;
     @FXML
     private VBox factorsContainer;
+    @FXML
+    private VBox generateButtonContainer;
 
     @FXML
     private Label bestDecisionIndex;
@@ -76,17 +77,11 @@ public class ContentView extends HBox implements Initializable {
     private Button findDecision;
 
     @FXML
-    private TextField fileName;
+    private MenuView menuView;
 
-    CriteriaInterface criteria;
+    AbstractCriteria criteria;
 
-    public void setCriteria(CriteriaInterface criteria) {
-        this.criteria = criteria;
-    }
-
-    public CriteriaInterface getCriteria() {
-        return criteria;
-    }
+    private boolean automatedEdit = false;
 
     public ContentView() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contentView.fxml"));
@@ -100,17 +95,30 @@ public class ContentView extends HBox implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.findDecision.setOnAction(new FindDecisionEventListener());
+    }
+
+    public void redraw(List<List<Double>> data) {
+        this.criteria.data = data;
+        this.tableView.getColumns().clear();
+        this.tableView.getItems().clear();
+        this.drawTable();
+        this.createFactorsContainer();
+        this.bestDecisionIndex.setText("?");
+        this.bestDecisionValue.setText("?");
+    }
+
+    public void setCriteria(AbstractCriteria criteria) {
+        this.criteria = criteria;
     }
 
     public void drawTable() {
         tableView.setEditable(true);
 
         for (int i = 0; i < criteria.getColumnsNumber(); i++) {
-            String name = "choice " + (i + 1);
+            String name = "condition " + (i + 1);
             TableColumn tableColumn = new TableColumn(name);
             tableView.getColumns().add(tableColumn);
 
@@ -141,31 +149,6 @@ public class ContentView extends HBox implements Initializable {
         }
     }
 
-    @FXML
-    protected void readFromFile() {
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(fileName.getText())));
-            List<List<Double>> data = new ArrayList<>();
-            String[] rows = content.split("\n");
-
-            for (int i = 0; i < rows.length; i++) {
-                String[] columns = rows[i].split(" ");
-                data.add(new ArrayList<>());
-
-                for (int j = 0; j < columns.length; j++) {
-                    data.get(i).add(Double.parseDouble(columns[j]));
-                }
-            }
-            this.criteria.data = data;
-            this.tableView.getColumns().clear();
-            this.tableView.getItems().clear();
-            this.drawTable();
-
-        } catch (IOException e) {
-            System.out.println("Cannot find given file. Error:  " + e.getMessage());
-        }
-    }
-
     public class FindDecisionEventListener implements EventHandler {
 
         @Override
@@ -180,13 +163,19 @@ public class ContentView extends HBox implements Initializable {
         @Override
         public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
             try {
-                ContentView.this.setFactors();
+                if (!automatedEdit) {
+                    System.out.print("laaaa");
+                    ContentView.this.setFactors();
+                }
             } catch (NumberFormatException ex) {
             }
         }
     }
 
     public void createFactorsContainer() {
+        this.factorsContainer.getChildren().clear();
+        this.generateButtonContainer.getChildren().clear();
+
         for (int i = 0; i < this.criteria.getFactors().size(); i++) {
             HBox row = new HBox();
             Label factorLabel = new Label("Factor " + (i + 1));
@@ -203,6 +192,27 @@ public class ContentView extends HBox implements Initializable {
 
             factorTextField.textProperty().addListener(new ChangeFactorEventListener());
         }
+        if (this.criteria.getFactors().size() != 0) {
+            this.drawGenerateRandomFactorsButton();
+        }
+    }
+
+    private void drawGenerateRandomFactorsButton() {
+        Button generateRandomFactors = new Button("Generate random factors");
+        generateRandomFactors.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                automatedEdit = true;
+                criteria.setRandomFactors();
+
+                for (int i = 0; i < criteria.getFactors().size(); i++) {
+                    ContentView.this.getFactorsTextField(i).setText(criteria.getFactors().get(i) + "");
+                }
+                automatedEdit = false;
+            }
+        });
+        this.generateButtonContainer.getChildren().add(generateRandomFactors);
     }
 
     protected void setFactors() {

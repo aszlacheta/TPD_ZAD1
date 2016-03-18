@@ -28,17 +28,4 @@ public class KryteriumBayesaTest implements CriteriaTestsInterface {
         Assert.assertTrue(result.getRow() == (winningZbozeIndex - 1));
         Assert.assertTrue(format.format(result.getValue()).equals("30,67"));
     }
-
-    @Test
-    public void testFindWithoutFactors() throws Exception {
-        //Given
-        KryteriumBayesa kryteriumBayesa = new KryteriumBayesa(defaultData);
-        //When
-        Result result = kryteriumBayesa.find();
-        //Then
-        int winningZbozeIndex = 1;
-        DecimalFormat format = new DecimalFormat("##.00");
-        Assert.assertTrue(result.getRow() == (winningZbozeIndex - 1));
-        Assert.assertTrue(format.format(result.getValue()).equals("30,67"));
-    }
 }

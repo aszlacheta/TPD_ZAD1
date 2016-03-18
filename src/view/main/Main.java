@@ -1,4 +1,4 @@
-package view2.main;
+package view.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +8,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Scene scene;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("TPD zad 1");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene = new Scene(root));
         primaryStage.show();
     }
 

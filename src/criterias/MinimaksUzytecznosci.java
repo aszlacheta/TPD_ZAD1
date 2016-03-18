@@ -6,11 +6,8 @@ import java.util.List;
 /**
  * Created by Aleksandra on 2016-03-15.
  */
-public class MinimaksUzytecznosci extends CriteriaInterface {
+public class MinimaksUzytecznosci extends AbstractCriteria {
 
-    public MinimaksUzytecznosci() {
-        this.data = this.defaultData;
-    }
     public MinimaksUzytecznosci(List data) {
         this.data = data;
     }
@@ -19,7 +16,7 @@ public class MinimaksUzytecznosci extends CriteriaInterface {
     public Result find() {
         Result bestResult = new Result();
 
-        for (int i = 0; i < this.data.size(); i++) {
+        for (int i = 0; i < this.getRowsNumber(); i++) {
             double bestResultInARow = Collections.min(this.data.get(i));
             if (bestResultInARow > bestResult.getValue()) {
                 bestResult.setValue(bestResultInARow);

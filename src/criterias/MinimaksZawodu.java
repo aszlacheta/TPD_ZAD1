@@ -6,11 +6,8 @@ import java.util.List;
 /**
  * Created by Aleksandra on 2016-03-15.
  */
-public class MinimaksZawodu extends CriteriaInterface {
+public class MinimaksZawodu extends AbstractCriteria {
 
-    public MinimaksZawodu() {
-        this.data = this.defaultData;
-    }
     public MinimaksZawodu(List data) {
         this.data = data;
     }
@@ -18,12 +15,12 @@ public class MinimaksZawodu extends CriteriaInterface {
     @Override
     public Result find() {
         Result bestResult = new Result();
-        ArrayList<Double> maxValues = this.getMaxValues();
+        ArrayList<Double> maxValues = this.getMaxColumnValues();
 
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < this.getRowsNumber(); i++) {
             double lossValue = 0;
 
-            for (int j = 0; j < data.get(i).size(); j++) {
+            for (int j = 0; j < this.getColumnsNumber(); j++) {
                 double localLossValue = maxValues.get(j) - this.data.get(i).get(j);
 
                 if (localLossValue > lossValue) {
@@ -38,13 +35,12 @@ public class MinimaksZawodu extends CriteriaInterface {
         return bestResult;
     }
 
-    private ArrayList<Double> getMaxValues() {
+    private ArrayList<Double> getMaxColumnValues() {
         ArrayList<Double> maxValues = new ArrayList<>();
-        int columnsNumber = this.data.get(0).size();
 
-        for (int j = 0; j < columnsNumber; j++) {
+        for (int j = 0; j < this.getColumnsNumber(); j++) {
             double maxValue = 0;
-            for (int i = 0; i < this.data.size(); i++) {
+            for (int i = 0; i < this.getRowsNumber(); i++) {
                 if (this.data.get(i).get(j) > maxValue) {
                     maxValue = this.data.get(i).get(j);
                 }
