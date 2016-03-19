@@ -62,11 +62,12 @@ public class DefaultData {
         add((double) 1 / 2);
     }};
 
-    public static final List DEFAULT_ON_RUNTIME = LECTURE_DATA;
+    public static final List DEFAULT_ON_RUNTIME = TASK_DATA;
 
     public static final String[] TAB_NAMES = {
             "Minimaks użyeczności",
             "Minimaks zawodu",
+            "Kryterium optymistyczne",
             "Kryterium Hurwicza",
             "Kryterium Bayesa",
             "Kryterium Laplace'a"
@@ -75,6 +76,7 @@ public class DefaultData {
     public static final AbstractCriteria[] CRITERIAS = {
             new MinimaksUzytecznosci(DEFAULT_ON_RUNTIME),
             new MinimaksZawodu(DEFAULT_ON_RUNTIME),
+            new KryteriumOptymistyczne(DEFAULT_ON_RUNTIME),
             new KryteriumHurwicza(DEFAULT_ON_RUNTIME, HURWICZ_DEFAULT_FACTOR),
             new KryteriumBayesa(DEFAULT_ON_RUNTIME, BAYES_DEFAULT_FACTORS),
             new KryteriumLaplacea(DEFAULT_ON_RUNTIME)

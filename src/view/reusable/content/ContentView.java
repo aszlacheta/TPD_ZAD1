@@ -46,6 +46,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -164,7 +165,6 @@ public class ContentView extends HBox implements Initializable {
         public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
             try {
                 if (!automatedEdit) {
-                    System.out.print("laaaa");
                     ContentView.this.setFactors();
                 }
             } catch (NumberFormatException ex) {
@@ -212,6 +212,9 @@ public class ContentView extends HBox implements Initializable {
                 automatedEdit = false;
             }
         });
+        generateRandomFactors.setPrefWidth(160);
+        this.generateButtonContainer.setAlignment(Pos.TOP_LEFT);
+
         this.generateButtonContainer.getChildren().add(generateRandomFactors);
     }
 

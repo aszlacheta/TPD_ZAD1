@@ -37,7 +37,10 @@
                     <Insets bottom="10.0" top="10.0"/>
                 </VBox.margin>
             </VBox>
-            <VBox fx:id="generateButtonContainer" alignment="TOP_CENTER" layoutX="287.0" layoutY="94.0" prefWidth="154.0">
+            <VBox fx:id="generateButtonContainer" alignment="TOP_CENTER" layoutX="287.0" layoutY="94.0" prefWidth="154.0" >
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
             </VBox>
             <Button fx:id="findDecision" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Evaluate"/>
         </children>

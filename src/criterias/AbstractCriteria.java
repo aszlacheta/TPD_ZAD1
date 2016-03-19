@@ -36,17 +36,22 @@ public abstract class AbstractCriteria {
         this.factors.clear();
 
         Random generator = new Random();
-        double summedUpFactors = 0;
 
-        for (int i = 0; i < factorsNumber; i++) {
-            double factor = generator.nextDouble();
-            summedUpFactors += factor;
-            this.factors.add(factor);
-        }
+        if (factorsNumber == 1) {
+            this.factors.add(generator.nextDouble());
+        } else {
+            double summedUpFactors = 0;
 
-        for (int i = 0; i < factorsNumber; i++) {
-            double value = this.factors.get(i) / summedUpFactors;
-            this.factors.set(i, value);
+            for (int i = 0; i < factorsNumber; i++) {
+                double factor = generator.nextDouble();
+                summedUpFactors += factor;
+                this.factors.add(factor);
+            }
+
+            for (int i = 0; i < factorsNumber; i++) {
+                double value = this.factors.get(i) / summedUpFactors;
+                this.factors.set(i, value);
+            }
         }
     }
 }
